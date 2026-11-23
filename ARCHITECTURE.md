@@ -42,6 +42,7 @@ Nota: os consumidores **Aviso** e **Painel** subscrevem os mesmos eventos atrav�
 ## 2. Eventos
 
 ### Catálogo
+
 De acordo com o enunciado, os eventos de partida são:
 | Evento | Produtor | Consumidores | Conteúdo |
 | :--- | :--- | :--- | :--- |
@@ -56,6 +57,20 @@ De acordo com o enunciado, os eventos de partida são:
 | `anomalia.classificada` | Serviço de Triagem | Serviço Operacional | `telhado_id`, `periodo`, `causa` (`sombra` \| `sujidade` \| `avaria`), `justificacao` |
 
 ### Como se evita perder mensagens e processar o mesmo evento mais do que uma vez
+
+#### Para prevenir a perda de mensagens, deve proteger-se os três pontos de falha no caminho:
+
+$$ Produtor → Broker → Consumidor → Base\,de\,dados $$
+
+1. **Produtor → Broker:** as filas e os *exchanges* ficam guardados em disco (`durable`) e os eventos também (`persistent`), para não desaparecerem se o RabbitMQ reiniciar. O produtor espera pela confirmação de receção do *broker* (*publisher confirms*) antes de avançar.
+2. **Broker → Consumidor:** o consumidor usa confirmação manual (`ack` manual). Assim, o RabbitMQ só apaga o evento da fila quando o consumidor avisar que terminou; se o consumidor cair a meio, o evento volta a ser entregue.
+3. **Consumidor → Base de dados:** o consumidor grava primeiro os dados na sua base SQLite e só depois envia o `ack` ao RabbitMQ. Se fizesse ao contrário e falhasse entre os dois passos, o evento perdia-se.
+
+#### Para prevenir o processamento duplicado de um evento:
+
+- Como os *gateways* reenviam medições repetidas e o RabbitMQ pode voltar a entregar um evento se o consumidor falhar antes do `ack`, os serviços têm de ser idempotentes (receber o mesmo evento duas vezes tem o mesmo efeito que recebê-lo uma vez):
+    1. **Chave única por evento:** cada serviço identifica os eventos pela sua chave natural: `(casa_id, periodo)` nos consumos, `(telhado_id, periodo)` nas produções e anomalias, e `relato_id` nos relatos.
+    2. **Verificação na base de dados:** antes de processar, o consumidor verifica na sua SQLite (com uma tabela de registo/restrição `UNIQUE`) se aquela chave já foi tratada. Se já existir, ignora o evento (não volta a somar no saldo nem a disparar triagem) e envia o `ack` para o retirar da fila.
 
 ## 3. Triagem
 
