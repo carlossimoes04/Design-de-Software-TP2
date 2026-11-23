@@ -43,18 +43,17 @@ Nota: os consumidores **Aviso** e **Painel** subscrevem os mesmos eventos atrav�
 
 ### Catálogo
 De acordo com o enunciado, os eventos de partida são:
-
 | Evento | Produtor | Consumidores | Conteúdo |
-| --- | --- | --- | --- |
-| `consumo.medido` | `Simulador` | `Serviço Operacional` | `casa_id`, `periodo`, `potencia_media_kw` |
-| `producao.medida` | `Simulador` | `Serviço Operacional`, `Serviço de Triagem` | `telhado_id`, `rua_id`, `periodo`, `potencia_media_kw` |
-| `periodo.encerrado` | `Simulador` | `Serviço Operacional` | `periodo` |
-| `saldo.calculado` | `Serviço Operacional` | - (registado) | `periodo`, `producao_total_kw`, `consumo_total_kw`, `saldo_kw` |
-| `relato.recebido` | `Simulador` | `Serviço de Triagem` | `relato_id`, `telhado_id`, `periodo`, `texto` |
-| `excedente.iniciado` | `Serviço Operacional` | `Aviso`, `Painel` | `periodo`, `saldo_kw` |
-| `excedente.terminado` | `Serviço Operacional` | `Aviso`, `Painel` | `periodo`, `saldo_kw` |
-| `producao.anomala` | `Serviço Operacional` | `Serviço de Triagem` | `telhado_id`, `rua_id`, `periodo`, `producao_kw`, `media_vizinhos_kw`, `num_vizinhos` |
-| `anomalia.classificada` | `Serviço de Triagem` | `Serviço Operacional` | `telhado_id`, `periodo`, `causa` (`sombra` \| `sujidade` \| `avaria`), `justificacao` |
+| :--- | :--- | :--- | :--- |
+| `consumo.medido` | Simulador | Serviço Operacional | `casa_id`, `periodo`, `potencia_media_kw` |
+| `producao.medida` | Simulador | Serviço Operacional <br> Serviço de Triagem | `telhado_id`, `rua_id`, `periodo`, `potencia_media_kw` |
+| `periodo.encerrado` | Simulador | Serviço Operacional | `periodo` |
+| `saldo.calculado` | Serviço Operacional | - (registado) | `periodo`, `producao_total_kw`, `consumo_total_kw`, `saldo_kw` |
+| `relato.recebido` | Simulador | Serviço de Triagem | `relato_id`, `telhado_id`, `periodo`, `texto` |
+| `excedente.iniciado` | Serviço Operacional | Aviso, Painel | `periodo`, `saldo_kw` |
+| `excedente.terminado` | Serviço Operacional | Aviso, Painel | `periodo`, `saldo_kw` |
+| `producao.anomala` | Serviço Operacional | Serviço de Triagem | `telhado_id`, `rua_id`, `periodo`, `producao_kw`, `media_vizinhos_kw`, `num_vizinhos` |
+| `anomalia.classificada` | Serviço de Triagem | Serviço Operacional | `telhado_id`, `periodo`, `causa` (`sombra` \| `sujidade` \| `avaria`), `justificacao` |
 
 ### Como se evita perder mensagens e processar o mesmo evento mais do que uma vez
 
