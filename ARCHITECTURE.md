@@ -39,6 +39,11 @@ Foram também identificadas outras características relevantes, como a *Seguran�
 
 Nota: os consumidores **Aviso** e **Painel** subscrevem os mesmos eventos através de filas independentes (`aviso` e `painel`) ligados ao mesmo *exchange* (`topic`) no **RabbitMQ**.
 
+Ao receber `anomalia.classificada`, o **Serviço Operacional** escolhe a ação apenas com base na `causa`:
+* `sombra` → nenhuma ação;
+* `sujidade` → avisar o membro para limpar o painel (consola);
+* `avaria` → registar pedido de intervenção (consola).
+
 ## 2. Eventos
 
 ### Catálogo
@@ -99,11 +104,33 @@ Quando o modelo falha, demora demais ou devolve uma resposta fora do formato JSO
 A justificação enviada explica que a decisão veio da regra sem IA, e o registo fica guardado na tabela `triagem_registo` com origem `fallback`.
 
 ### O que correu mal com o modelo real
+*A preencher após correr os evals uma vez com o modelo real (temperatura 0).*
 
 ## 4. Decisões
 
 ### Porquê EDA e o que se perde
 
+A alternativa rejeitada foi chamadas síncronas diretas entre serviços (REST/HTTP).
+
+Escolheu-se **EDA** porque o mesmo evento é usado por mais do que um serviço (`Aviso` e `Painel` nos excedentes, `Operacional` e `Triagem` nas produções) e porque é preciso isolar o que é instável ou lento, como a rede dos *gateways* e as chamadas à IA. Com eventos a passar pelo *broker*, quem publica não fica preso à espera de quem consome, e se a Triagem cair, os saldos e os avisos continuam a funcionar.
+
+Em troca, perde-se consistência imediata. As vistas locais atualizam de forma assíncrona e os valores atrasados ficam de fora do saldo já fechado. O sistema também fica mais pesado de operar, testar e depurar do que chamadas HTTP diretas, porque obriga a manter o RabbitMQ e a tratar mensagens duplicadas em cada consumidor.
+
 ### Porque chega a topologia *broker* e quando seria preciso um *mediator*
 
+A alternativa rejeitada foi a topologia *mediator*. Um *mediator* consiste numa orquestração centralizada com um componente a controlar o fluxo e a enviar comandos, o que não é caso para este sistema.
+
+A topologia *Broker* chega porque os fluxos do sistema são curtos e independentes. Cada serviço lê o evento do tópico no RabbitMQ, processa-o e publica o resultado, sem precisar de um componente central a controlar o estado global. Como não há transações entre vários serviços que precisem de ser revertidas em caso de erro, não é necessário orquestrar passos. Esta opção também permite ligar `Aviso`, `Painel` ou novos consumidores no futuro sem alterar o `Serviço Operacional`.
+
+Um *Mediator* seria necessário se existissem fluxos com vários passos dependentes que exigissem controlo de estado, ordem rígida ou compensação de falhas. Por exemplo, se uma anomalia obrigasse a marcar um técnico externo, esperar por confirmação manual de um gestor e cancelar ou retomar passos anteriores caso algum falhasse.
+
 ### Como é que o sistema funciona quando a IA falha
+
+A alternativa rejeitada foi chamar o modelo de IA de forma síncrona dentro do `Serviço Operacional`, ou suspender a classificação de anomalias quando o modelo não responde.
+
+Quando o modelo de IA está indisponível, excede o *timeout*, atinge o limite de pedidos ou devolve uma resposta que falha na validação do esquema JSON:
+1. **Operação principal sem impacto (F4):** como o `Serviço de Triagem` está isolado e comunica apenas por eventos no RabbitMQ, o `Serviço Operacional`, o `Aviso` e o `Painel` continuam a calcular saldos, detetar excedentes e detetar anomalias normalmente;
+2. **Ativação da regra sem IA (F3):** na `Triagem`, o erro ou resposta inválida é capturado e o serviço aplica a regra definida na secção 3 (que, na dúvida, classifica como `avaria`);
+3. **Continuidade do fluxo e registo:** o `Serviço de Triagem` publica `anomalia.classificada` com a causa obtida pela regra de reserva, regista na `triagem_registo` o que aconteceu com origem `fallback`, e o `Serviço Operacional` executa a ação correspondente pela tabela sem depender de a decisão ter vindo da IA.
+
+
