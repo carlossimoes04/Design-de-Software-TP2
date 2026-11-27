@@ -37,7 +37,7 @@ Foram também identificadas outras características relevantes, como a *Seguran�
 | Aviso | Imprime avisos aos membros na consola quando um excedente começa ou acaba | - | `excedente.iniciado`, `excedente.terminado` | - (consola) |
 | Painel | Atualiza o painel na consola com as mudanças de estado do excedente | - | `excedente.iniciado`, `excedente.terminado` | - (consola) |
 
-Nota: os consumidores **Aviso** e **Painel** subscrevem os mesmos eventos através de filas independentes (`aviso` e `painel`) ligados ao mesmo *exchange* (`topic`) no **RabbitMQ**.
+Nota: os consumidores **Aviso** e **Painel** subscrevem os mesmos eventos através de filas independentes (`aviso` e `painel`) ligadas ao mesmo *exchange* (`topic`) no **RabbitMQ**.
 
 Ao receber `anomalia.classificada`, o **Serviço Operacional** escolhe a ação apenas com base na `causa`:
 * `sombra` → nenhuma ação;
@@ -63,7 +63,7 @@ De acordo com o enunciado, os eventos de partida são:
 
 ### Como se evita perder mensagens e processar o mesmo evento mais do que uma vez
 
-#### Para prevenir a perda de mensagens, deve proteger-se os três pontos de falha no caminho:
+#### Para prevenir a perda de mensagens, devem proteger-se os três pontos de falha no caminho:
 
 $$ Produtor → Broker → Consumidor → Base\,de\,dados $$
 
@@ -112,11 +112,11 @@ A justificação enviada explica que a decisão veio da regra sem IA, e o regist
 
 ### Porquê EDA e o que se perde
 
-A alternativa rejeitada foi chamadas síncronas diretas entre serviços (REST/HTTP).
+A alternativa rejeitada foi o uso de chamadas síncronas diretas entre serviços (REST/HTTP).
 
 Escolheu-se **EDA** porque o mesmo evento é usado por mais do que um serviço (`Aviso` e `Painel` nos excedentes, `Operacional` e `Triagem` nas produções) e porque é preciso isolar o que é instável ou lento, como a rede dos *gateways* e as chamadas à IA. Com eventos a passar pelo *broker*, quem publica não fica preso à espera de quem consome, e se a Triagem cair, os saldos e os avisos continuam a funcionar.
 
-Em troca, perde-se consistência imediata. As vistas locais atualizam de forma assíncrona e os valores atrasados ficam de fora do saldo já fechado. O sistema também fica mais pesado de operar, testar e depurar do que chamadas HTTP diretas, porque obriga a manter o RabbitMQ e a tratar mensagens duplicadas em cada consumidor.
+Em troca, perde-se consistência imediata. As vistas locais atualizam-se de forma assíncrona e os valores atrasados ficam de fora do saldo já fechado. O sistema também fica mais pesado de operar, testar e depurar do que chamadas HTTP diretas, porque obriga a manter o RabbitMQ e a tratar mensagens duplicadas em cada consumidor.
 
 ### Porque chega a topologia *broker* e quando seria preciso um *mediator*
 
