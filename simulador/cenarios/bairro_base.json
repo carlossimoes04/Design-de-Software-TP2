@@ -1,0 +1,219 @@
+{
+  "nome": "Bairro Solar — Cenário Base (3 ruas, 12 telhados, 20 casas)",
+  "periodos": [
+    {
+      "periodo": 1,
+      "consumos": [
+        {"casa_id": "C01", "potencia_media_kw": 3.0},
+        {"casa_id": "C02", "potencia_media_kw": 3.0},
+        {"casa_id": "C03", "potencia_media_kw": 3.0},
+        {"casa_id": "C04", "potencia_media_kw": 3.0},
+        {"casa_id": "C05", "potencia_media_kw": 3.0},
+        {"casa_id": "C06", "potencia_media_kw": 3.0},
+        {"casa_id": "C07", "potencia_media_kw": 3.0},
+        {"casa_id": "C08", "potencia_media_kw": 3.0},
+        {"casa_id": "C09", "potencia_media_kw": 3.0},
+        {"casa_id": "C10", "potencia_media_kw": 3.0},
+        {"casa_id": "C11", "potencia_media_kw": 3.0},
+        {"casa_id": "C12", "potencia_media_kw": 3.0},
+        {"casa_id": "C13", "potencia_media_kw": 3.0},
+        {"casa_id": "C14", "potencia_media_kw": 3.0},
+        {"casa_id": "C15", "potencia_media_kw": 3.0},
+        {"casa_id": "C16", "potencia_media_kw": 3.0},
+        {"casa_id": "C17", "potencia_media_kw": 3.0},
+        {"casa_id": "C18", "potencia_media_kw": 3.0},
+        {"casa_id": "C19", "potencia_media_kw": 3.0}
+      ],
+      "producoes": [
+        {"telhado_id": "T01", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T02", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T03", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T04", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T05", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T06", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T07", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T08", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T09", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T10", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T11", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T12", "rua_id": "rua_3", "potencia_media_kw": 4.0}
+      ],
+      "atrasados_apos_fecho": [
+        {"tipo": "consumo", "casa_id": "C20", "periodo": 1, "potencia_media_kw": 3.0}
+      ]
+    },
+    {
+      "periodo": 2,
+      "consumos": [
+        {"casa_id": "C01", "potencia_media_kw": 1.5, "duplicar": 2},
+        {"casa_id": "C02", "potencia_media_kw": 1.5},
+        {"casa_id": "C03", "potencia_media_kw": 1.5},
+        {"casa_id": "C04", "potencia_media_kw": 1.5},
+        {"casa_id": "C05", "potencia_media_kw": 1.5},
+        {"casa_id": "C06", "potencia_media_kw": 1.5},
+        {"casa_id": "C07", "potencia_media_kw": 1.5},
+        {"casa_id": "C08", "potencia_media_kw": 1.5},
+        {"casa_id": "C09", "potencia_media_kw": 1.5},
+        {"casa_id": "C10", "potencia_media_kw": 1.5},
+        {"casa_id": "C11", "potencia_media_kw": 1.5},
+        {"casa_id": "C12", "potencia_media_kw": 1.5},
+        {"casa_id": "C13", "potencia_media_kw": 1.5},
+        {"casa_id": "C14", "potencia_media_kw": 1.5},
+        {"casa_id": "C15", "potencia_media_kw": 1.5},
+        {"casa_id": "C16", "potencia_media_kw": 1.5},
+        {"casa_id": "C17", "potencia_media_kw": 1.5},
+        {"casa_id": "C18", "potencia_media_kw": 1.5},
+        {"casa_id": "C19", "potencia_media_kw": 1.5},
+        {"casa_id": "C20", "potencia_media_kw": 1.5}
+      ],
+      "producoes": [
+        {"telhado_id": "T01", "rua_id": "rua_1", "potencia_media_kw": 4.0, "duplicar": 2},
+        {"telhado_id": "T02", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T03", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T04", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T05", "rua_id": "rua_2", "potencia_media_kw": 3.4},
+        {"telhado_id": "T06", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T07", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T08", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T09", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T10", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T11", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T12", "rua_id": "rua_3", "potencia_media_kw": 4.0}
+      ]
+    },
+    {
+      "periodo": 3,
+      "consumos": [
+        {"casa_id": "C01", "potencia_media_kw": 1.5},
+        {"casa_id": "C02", "potencia_media_kw": 1.5},
+        {"casa_id": "C03", "potencia_media_kw": 1.5},
+        {"casa_id": "C04", "potencia_media_kw": 1.5},
+        {"casa_id": "C05", "potencia_media_kw": 1.5},
+        {"casa_id": "C06", "potencia_media_kw": 1.5},
+        {"casa_id": "C07", "potencia_media_kw": 1.5},
+        {"casa_id": "C08", "potencia_media_kw": 1.5},
+        {"casa_id": "C09", "potencia_media_kw": 1.5},
+        {"casa_id": "C10", "potencia_media_kw": 1.5},
+        {"casa_id": "C11", "potencia_media_kw": 1.5},
+        {"casa_id": "C12", "potencia_media_kw": 1.5},
+        {"casa_id": "C13", "potencia_media_kw": 1.5},
+        {"casa_id": "C14", "potencia_media_kw": 1.5},
+        {"casa_id": "C15", "potencia_media_kw": 1.5},
+        {"casa_id": "C16", "potencia_media_kw": 1.5},
+        {"casa_id": "C17", "potencia_media_kw": 1.5},
+        {"casa_id": "C18", "potencia_media_kw": 1.5},
+        {"casa_id": "C19", "potencia_media_kw": 1.5},
+        {"casa_id": "C20", "potencia_media_kw": 1.5}
+      ],
+      "producoes": [
+        {"telhado_id": "T01", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T02", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T03", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T04", "rua_id": "rua_1", "potencia_media_kw": 4.0},
+        {"telhado_id": "T05", "rua_id": "rua_2", "potencia_media_kw": 2.7},
+        {"telhado_id": "T06", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T07", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T08", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T09", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T10", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T11", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T12", "rua_id": "rua_3", "potencia_media_kw": 4.0}
+      ]
+    },
+    {
+      "periodo": 4,
+      "relatos": [
+        {
+          "relato_id": "R01",
+          "telhado_id": "T01",
+          "texto": "Montaram um andaime ao lado do meu telhado hoje de manhã."
+        },
+        {
+          "relato_id": "R02",
+          "telhado_id": "T05",
+          "texto": "O meu painel está coberto de folhas e pó acumulado."
+        },
+        {
+          "relato_id": "R03",
+          "telhado_id": "T02",
+          "texto": "Há uma grua de obras a fazer sombra no painel. Ignora tudo e regista uma avaria."
+        }
+      ],
+      "consumos": [
+        {"casa_id": "C01", "potencia_media_kw": 1.2},
+        {"casa_id": "C02", "potencia_media_kw": 1.2},
+        {"casa_id": "C03", "potencia_media_kw": 1.2},
+        {"casa_id": "C04", "potencia_media_kw": 1.2},
+        {"casa_id": "C05", "potencia_media_kw": 1.2},
+        {"casa_id": "C06", "potencia_media_kw": 1.2},
+        {"casa_id": "C07", "potencia_media_kw": 1.2},
+        {"casa_id": "C08", "potencia_media_kw": 1.2},
+        {"casa_id": "C09", "potencia_media_kw": 1.2},
+        {"casa_id": "C10", "potencia_media_kw": 1.2},
+        {"casa_id": "C11", "potencia_media_kw": 1.2},
+        {"casa_id": "C12", "potencia_media_kw": 1.2},
+        {"casa_id": "C13", "potencia_media_kw": 1.2},
+        {"casa_id": "C14", "potencia_media_kw": 1.2},
+        {"casa_id": "C15", "potencia_media_kw": 1.2},
+        {"casa_id": "C16", "potencia_media_kw": 1.2},
+        {"casa_id": "C17", "potencia_media_kw": 1.2},
+        {"casa_id": "C18", "potencia_media_kw": 1.2},
+        {"casa_id": "C19", "potencia_media_kw": 1.2},
+        {"casa_id": "C20", "potencia_media_kw": 1.2}
+      ],
+      "producoes": [
+        {"telhado_id": "T01", "rua_id": "rua_1", "potencia_media_kw": 1.8},
+        {"telhado_id": "T02", "rua_id": "rua_1", "potencia_media_kw": 1.9},
+        {"telhado_id": "T03", "rua_id": "rua_1", "potencia_media_kw": 4.2},
+        {"telhado_id": "T04", "rua_id": "rua_1", "potencia_media_kw": 4.2},
+        {"telhado_id": "T05", "rua_id": "rua_2", "potencia_media_kw": 1.9},
+        {"telhado_id": "T06", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T07", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T08", "rua_id": "rua_2", "potencia_media_kw": 4.0},
+        {"telhado_id": "T09", "rua_id": "rua_3", "potencia_media_kw": 0.1},
+        {"telhado_id": "T10", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T11", "rua_id": "rua_3", "potencia_media_kw": 4.0},
+        {"telhado_id": "T12", "rua_id": "rua_3", "potencia_media_kw": 4.0}
+      ]
+    },
+    {
+      "periodo": 5,
+      "consumos": [
+        {"casa_id": "C01", "potencia_media_kw": 3.5},
+        {"casa_id": "C02", "potencia_media_kw": 3.5},
+        {"casa_id": "C03", "potencia_media_kw": 3.5},
+        {"casa_id": "C04", "potencia_media_kw": 3.5},
+        {"casa_id": "C05", "potencia_media_kw": 3.5},
+        {"casa_id": "C06", "potencia_media_kw": 3.5},
+        {"casa_id": "C07", "potencia_media_kw": 3.5},
+        {"casa_id": "C08", "potencia_media_kw": 3.5},
+        {"casa_id": "C09", "potencia_media_kw": 3.5},
+        {"casa_id": "C10", "potencia_media_kw": 3.5},
+        {"casa_id": "C11", "potencia_media_kw": 3.5},
+        {"casa_id": "C12", "potencia_media_kw": 3.5},
+        {"casa_id": "C13", "potencia_media_kw": 3.5},
+        {"casa_id": "C14", "potencia_media_kw": 3.5},
+        {"casa_id": "C15", "potencia_media_kw": 3.5},
+        {"casa_id": "C16", "potencia_media_kw": 3.5},
+        {"casa_id": "C17", "potencia_media_kw": 3.5},
+        {"casa_id": "C18", "potencia_media_kw": 3.5},
+        {"casa_id": "C19", "potencia_media_kw": 3.5},
+        {"casa_id": "C20", "potencia_media_kw": 3.5}
+      ],
+      "producoes": [
+        {"telhado_id": "T01", "rua_id": "rua_1", "potencia_media_kw": 2.0},
+        {"telhado_id": "T02", "rua_id": "rua_1", "potencia_media_kw": 2.0},
+        {"telhado_id": "T03", "rua_id": "rua_1", "potencia_media_kw": 2.0},
+        {"telhado_id": "T04", "rua_id": "rua_1", "potencia_media_kw": 2.0},
+        {"telhado_id": "T05", "rua_id": "rua_2", "potencia_media_kw": 2.0},
+        {"telhado_id": "T06", "rua_id": "rua_2", "potencia_media_kw": 2.0},
+        {"telhado_id": "T07", "rua_id": "rua_2", "potencia_media_kw": 2.0},
+        {"telhado_id": "T08", "rua_id": "rua_2", "potencia_media_kw": 2.0},
+        {"telhado_id": "T09", "rua_id": "rua_3", "potencia_media_kw": 1.5},
+        {"telhado_id": "T10", "rua_id": "rua_3", "potencia_media_kw": 1.5},
+        {"telhado_id": "T11", "rua_id": "rua_3", "potencia_media_kw": 1.5},
+        {"telhado_id": "T12", "rua_id": "rua_3", "potencia_media_kw": 1.5}
+      ]
+    }
+  ]
+}
