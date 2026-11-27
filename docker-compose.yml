@@ -1,6 +1,49 @@
-services: 
-  broker: 
-    image: rabbitmq:4-management 
-    ports: 
-      - "5672:5672" 
-      - "15672:15672" 
+services:
+  broker:
+    image: rabbitmq:4-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  operacional:
+    build: .
+    command: python -m src.operacional.main
+    depends_on:
+      - broker
+    environment:
+      - PYTHONUNBUFFERED=1 #pythonunbeffered é uma variável de ambiente que faz com que o Python não faça buffering na saída padrão e no erro padrão, ou seja, os logs serão exibidos em tempo real
+      - RABBITMQ_HOST=broker
+      - DB_PATH=operacional.db
+
+  triagem:
+    build: .
+    command: python -m src.triagem.main
+    depends_on:
+      - broker
+    environment:
+      - PYTHONUNBUFFERED=1
+      - RABBITMQ_HOST=broker
+      - DB_PATH=triagem.db
+      - TRIAGE_MODE=${TRIAGE_MODE:-ollama}
+      - OLLAMA_URL=${OLLAMA_URL:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-gemma4:e4b}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  aviso:
+    build: .
+    command: python -m src.aviso.main
+    depends_on:
+      - broker
+    environment:
+      - PYTHONUNBUFFERED=1
+      - RABBITMQ_HOST=broker
+
+  painel:
+    build: .
+    command: python -m src.painel.main
+    depends_on:
+      - broker
+    environment:
+      - PYTHONUNBUFFERED=1
+      - RABBITMQ_HOST=broker
