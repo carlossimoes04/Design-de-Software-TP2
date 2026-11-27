@@ -31,7 +31,7 @@ Foram também identificadas outras características relevantes, como a *Seguran�
 
 | Componente | Responsabilidade | Base de Dados | Subscreve | Publica |
 | :--- | :--- | :--- | :--- | :--- |
-| Simulador | Gera medições, relatos e fecho de períodos a partir de cenários (com atrasos e duplicados) | - (lê ficheiros) | - | `consumo.medido`, `producao.medida`, `periodo.encerrado`, `relato.recebido` |
+| Simulador | Gera medições, relatos e fecho de períodos a partir de cenários (escala pequena, ex.: 3 ruas, 12 telhados, 20 casas; com atrasos, duplicados e sem esperas entre períodos) | - (lê ficheiros) | - | `consumo.medido`, `producao.medida`, `periodo.encerrado`, `relato.recebido` |
 | Serviço Operacional | Calcula saldo (ignorando duplicados), guarda atrasados para auditoria, deteta mudanças de excedente, deteta anomalias (≥ 40% abaixo de ≥ 3 vizinhos, salvo se a rua inteira baixar) e executa ações na consola | SQLite (`operacional.db`) | `consumo.medido`, `producao.medida`, `periodo.encerrado`, `anomalia.classificada` | `saldo.calculado`, `excedente.iniciado`, `excedente.terminado`, `producao.anomala` |
 | Serviço de Triagem | Mantém vista local (CQRS), classifica anomalias (1 de cada vez) através de uma interface de modelo (real ou falso para testes), valida a resposta aplicando regra sem IA em caso de falha, e regista as decisões | SQLite (`triagem.db`) | `producao.medida`, `relato.recebido`, `producao.anomala` | `anomalia.classificada` |
 | Aviso | Imprime avisos aos membros na consola quando um excedente começa ou acaba | - | `excedente.iniciado`, `excedente.terminado` | - (consola) |
@@ -93,6 +93,8 @@ Quando recebe `producao.anomala`, o Serviço de Triagem lê apenas a sua vista l
     3. Os relatos recentes desse telhado isolados entre `<relatos_morador>...</relatos_morador>`.
 
 Antes de aceitar a resposta, o serviço valida-a tendo em conta o esquema JSON esperado. Tudo o que entra e sai do modelo (pedido, resposta bruta, causa final e se veio da `ia` ou de `fallback`) fica guardado na tabela `triagem_registo`. Para os testes e *evals* correrem sem chamar a API real, o modelo fica atrás da interface `TriageModel`, que tem a implementação falsa `FakeTriageModel`.
+
+Os evals cobrem pelo menos 4 cenários (sombra, sujidade, avaria e tentativa de *prompt injection*), correndo com `FakeTriageModel` em `tests/` (junto com testes de duplicados por gateway e redelivery do RabbitMQ) ou uma vez com o modelo real a temperatura 0.
 
 A implementação real usa o Ollama (`POST /api/chat` com o modelo `gemma4:e4b`, `temperature: 0`, `format: "json"` e `think: false`).
 
