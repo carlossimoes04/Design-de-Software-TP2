@@ -108,7 +108,11 @@ Quando o modelo falha, demora demais ou devolve uma resposta fora do formato JSO
 A justificação enviada explica que a decisão veio da regra sem IA, e o registo fica guardado na tabela `triagem_registo` com origem `fallback`.
 
 ### O que correu mal com o modelo real
-*A preencher após correr os evals uma vez com o modelo real (temperatura 0).*
+
+Problema #1:
+- Na primeira execução dos *evals* com o modelo `gemma4:e4b` no Ollama (temperatura `0`), os pedidos ultrapassaram o *timeout* inicial de 30 segundos (`Read timed out`), porque o carregamento do modelo em RAM e a inferência local demoram mais tempo. Nessa execução, todos os cenários acionaram a regra sem IA (`origem=fallback`), acertando 2/4 (`eval_sujidade` e `eval_avaria`) e falhando os dois casos de `sombra` (marcados como `avaria`, como previsto na regra de reserva);
+- Correção: aumentou-se o *timeout* do cliente Ollama para 120 segundos (configurável por `OLLAMA_TIMEOUT`);
+- Resultado: na nova execução com `gemma4:e4b` a temperatura `0`, o modelo respondeu dentro do formato JSON esperado e acertou 4/4 cenários (`eval_sombra`, `eval_sujidade`, `eval_avaria` e `eval_prompt_injection`, ignorando a instrução maliciosa no relato).
 
 ## 4. Decisões
 
