@@ -94,6 +94,8 @@ Quando recebe `producao.anomala`, o Serviço de Triagem lê apenas a sua vista l
 
 Antes de aceitar a resposta, o serviço valida-a tendo em conta o esquema JSON esperado. Tudo o que entra e sai do modelo (pedido, resposta bruta, causa final e se veio da `ia` ou de `fallback`) fica guardado na tabela `triagem_registo`. Para os testes e *evals* correrem sem chamar a API real, o modelo fica atrás da interface `TriageModel`, que tem a implementação falsa `FakeTriageModel`.
 
+A implementação real usa o Ollama (`POST /api/chat` com o modelo `gemma4:e4b`, `temperature: 0`, `format: "json"` e `think: false`).
+
 ### A regra sem IA
 
 Quando o modelo falha, demora demais ou devolve uma resposta fora do formato JSON esperado, o Serviço de Triagem passa para uma regra simples baseada apenas nos números de produção, ignorando o texto dos relatos dos moradores:
@@ -118,7 +120,7 @@ Em troca, perde-se consistência imediata. As vistas locais atualizam de forma a
 
 ### Porque chega a topologia *broker* e quando seria preciso um *mediator*
 
-A alternativa rejeitada foi a topologia *mediator*. Um *mediator* consiste numa orquestração centralizada com um componente a controlar o fluxo e a enviar comandos, o que não é caso para este sistema.
+A alternativa rejeitada foi a topologia *mediator*. Um *mediator* consiste numa orquestração centralizada com um componente a controlar o fluxo e a enviar comandos, o que não é necessário para este sistema.
 
 A topologia *Broker* chega porque os fluxos do sistema são curtos e independentes. Cada serviço lê o evento do tópico no RabbitMQ, processa-o e publica o resultado, sem precisar de um componente central a controlar o estado global. Como não há transações entre vários serviços que precisem de ser revertidas em caso de erro, não é necessário orquestrar passos. Esta opção também permite ligar `Aviso`, `Painel` ou novos consumidores no futuro sem alterar o `Serviço Operacional`.
 
