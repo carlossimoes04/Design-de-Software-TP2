@@ -11,14 +11,10 @@ GitHub Repo link: https://github.com/carlossimoes04/Design-de-Software-TP2
 ## Prompts utilizadas para a geração do código
 
 Para a geração completa do sistema:
-```text
-Implementa o sistema completo Bairro Solar em Python 3.11 a partir de [`ARCHITECTURE.md`](./ARCHITECTURE.md), [`docker-compose.yml`](./docker-compose.yml), [`Dockerfile`](./Dockerfile) e [`requirements.txt`](./requirements.txt).
-```
+> Implementa o sistema completo Bairro Solar em Python 3.11 a partir de [`ARCHITECTURE.md`](./ARCHITECTURE.md), [`docker-compose.yml`](./docker-compose.yml), [`Dockerfile`](./Dockerfile) e [`requirements.txt`](./requirements.txt).
 
 Para fazer uma limpeza ao código:
-```text
-No código, remove redundâncias e ficheiros/código inútil ou que não faça nada, sem comprometer o projeto
-```
+> No código, remove redundâncias e ficheiros/código inútil ou que não faça nada, sem comprometer o projeto
 
 ## Visão geral do sistema
 
